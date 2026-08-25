@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="在浏览器中将文本、网址、联系方式或 Wi-Fi 信息转换为二维码。"
+    />
+    <title>QR-Studio · 文本二维码生成器</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#generator">跳到二维码生成器</a>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero__eyebrow">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M5 5h16v16H5V5Zm22 0h16v16H27V5ZM5 27h16v16H5V27Z" stroke="currentColor" stroke-width="5" />
+              <path d="M30 29h5v5h8v9H29v-7h5v-4h-4v-3Z" fill="currentColor" />
+            </svg>
+          </span>
+          <span>码语 · QR STUDIO</span>
+        </div>
+        <h1 id="page-title">让每一段文字<br />都有一个入口</h1>
+        <p class="hero__intro">
+          把文本、链接、联系方式或 Wi-Fi 信息变成可分享的二维码。生成过程在浏览器中完成，不会上传您的内容。
+        </p>
+        <div class="hero__notes" aria-label="服务特点">
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.7 2.9 8.9 7 10 4.1-1.1 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>本地处理</span>
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>高清下载</span>
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 16 0 8 8 0 1 0-16 0"/><path d="M12 8v4l3 2"/></svg>即时生成</span>
+        </div>
+      </section>
+
+      <section class="generator" id="generator" aria-labelledby="generator-title">
+        <div class="panel panel--editor">
+          <div class="panel__heading">
+            <div>
+              <p class="section-kicker">01 · 输入内容</p>
+              <h2 id="generator-title">你想分享什么？</h2>
+            </div>
+            <button class="text-button" type="button" id="clear-button">清空</button>
+          </div>
+
+          <label class="input-label" for="content-input">文本内容</label>
+          <textarea
+            id="content-input"
+            name="content"
+            rows="8"
+            maxlength="2950"
+            spellcheck="false"
+            placeholder="输入文本、粘贴网址，或写下一句想分享的话…"
+            aria-describedby="content-help content-count"
+          >https://example.com/welcome</textarea>
+          <div class="input-meta">
+            <p id="content-help">支持中文、网址、电话、邮箱和 Wi-Fi 格式。</p>
+            <p id="content-count" class="counter" aria-live="polite">0 / 2,950</p>
+          </div>
+
+          <fieldset class="quick-actions">
+            <legend>快速填入</legend>
+            <div class="quick-actions__buttons">
+              <button type="button" class="chip" data-preset="url">网址</button>
+              <button type="button" class="chip" data-preset="contact">联系方式</button>
+              <button type="button" class="chip" data-preset="wifi">Wi-Fi</button>
+              <button type="button" class="chip chip--file" id="text-file-picker">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>
+                导入文本文件
+              </button>
+              <input id="text-file-input" type="file" accept=".txt,.md,.csv,.json,text/plain,text/csv,application/json" hidden />
+            </div>
+            <p class="file-import-status" id="text-file-status" role="status" aria-live="polite">支持 UTF-8 编码的 TXT、MD、CSV、JSON 文件。</p>
+          </fieldset>
+
+          <details class="settings" open>
+            <summary>
+              <span>外观设置</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="settings__content">
+              <label class="field-label" for="error-level">容错等级
+                <select id="error-level" name="error-level">
+                  <option value="L">低 · 容纳更多文字</option>
+                  <option value="M" selected>中 · 推荐</option>
+                  <option value="Q">较高 · 更耐遮挡</option>
+                  <option value="H">高 · 更耐遮挡</option>
+                </select>
+              </label>
+              <label class="field-label" for="size-select">导出尺寸
+                <select id="size-select" name="size">
+                  <option value="256">256 × 256 px</option>
+                  <option value="512" selected>512 × 512 px</option>
+                  <option value="1024">1024 × 1024 px</option>
+                </select>
+              </label>
+              <label class="color-field" for="foreground-color">
+                <input id="foreground-color" type="color" value="#17172A" />
+                <span><strong>码点颜色</strong><small id="foreground-value">#17172A</small></span>
+              </label>
+              <label class="color-field" for="background-color">
+                <input id="background-color" type="color" value="#FFFFFF" />
+                <span><strong>背景颜色</strong><small id="background-value">#FFFFFF</small></span>
+              </label>
+            </div>
+          </details>
+        </div>
+
+        <div class="panel panel--preview">
+          <div class="panel__heading">
+            <div>
+              <p class="section-kicker">02 · 扫描预览</p>
+              <h2>你的二维码</h2>
+            </div>
+            <span class="live-indicator"><i></i>实时更新</span>
+          </div>
+
+          <div class="qr-stage" id="qr-stage">
+            <canvas id="qr-canvas" width="512" height="512" aria-label="已生成的二维码预览"></canvas>
+            <div class="qr-placeholder" id="qr-placeholder" hidden>
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 5h16v16H5V5Zm22 0h16v16H27V5ZM5 27h16v16H5V27Z"/><path d="M30 29h5v5h8v9H29v-7h5v-4h-4v-3Z"/></svg>
+              <p>输入内容后生成二维码</p>
+            </div>
+          </div>
+          <p class="preview-hint" id="preview-hint" aria-live="polite">二维码已准备好，可使用手机相机扫描。</p>
+
+          <div class="preview-actions">
+            <button class="button button--primary" type="button" id="download-button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              下载 PNG
+            </button>
+            <button class="button button--secondary" type="button" id="copy-button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="10" height="11" rx="1"/><path d="M15 9V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4"/></svg>
+              复制内容
+            </button>
+          </div>
+          <p class="privacy-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.7 2.9 8.9 7 10 4.1-1.1 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>你的文本不会被保存或上传。</p>
+        </div>
+      </section>
+
+      <section class="decoder panel" aria-labelledby="decoder-title">
+        <div class="panel__heading decoder__heading">
+          <div>
+            <p class="section-kicker">03 · 解析二维码</p>
+            <h2 id="decoder-title">从二维码读出文本</h2>
+          </div>
+          <span class="privacy-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.7 2.9 8.9 7 10 4.1-1.1 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>本地解析</span>
+        </div>
+        <p class="decoder__intro">上传或拖入一张包含二维码的图片，即可提取其中的文本、网址或其他内容。</p>
+        <div class="decoder__content">
+          <div class="drop-zone" id="drop-zone">
+            <svg class="drop-zone__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>
+            <p><strong>拖入二维码图片</strong><span>支持 PNG、JPG、WEBP 等常见图片格式</span></p>
+            <button class="button button--secondary" type="button" id="file-picker">选择图片</button>
+            <input id="decoder-file" type="file" accept="image/*" hidden />
+          </div>
+          <div class="decoder-preview">
+            <img id="decoder-image" alt="待解析的二维码图片预览" hidden />
+            <div class="decoder-preview__empty" id="decoder-preview-empty" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+              <span>图片预览</span>
+            </div>
+          </div>
+        </div>
+        <p class="decoder-status" id="decoder-status" role="status" aria-live="polite">请选择一张清晰的二维码图片。</p>
+        <div class="decoded-result" id="decoded-result" hidden>
+          <label class="input-label" for="decoded-output">解析结果</label>
+          <textarea id="decoded-output" rows="3" readonly aria-describedby="decoded-help"></textarea>
+          <p id="decoded-help">内容已从图片中读取，您可复制或直接用于生成新的二维码。</p>
+          <div class="decoded-result__actions">
+            <button class="button button--primary" type="button" id="use-decoded-button">用于生成二维码</button>
+            <button class="button button--secondary" type="button" id="copy-decoded-button">复制解析结果</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="vendor/qrcode.min.js"></script>
+    <script src="vendor/jsqr.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

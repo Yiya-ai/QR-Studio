@@ -1,0 +1,44 @@
+# Dependencies and build outputs
+node_modules/
+dist/
+build/
+coverage/
+.cache/
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+cookies.txt
+*.cookie
+*.session
+
+# Runtime data and temporary files
+logs/
+downloads/
+outputs/
+tmp/
+temp/
+*.log
+*.tmp
+*.bak
+*.sqlite
+*.sqlite3
+*.db
+
+# Test artifacts
+screenshots/
+test-results/
+playwright-report/
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

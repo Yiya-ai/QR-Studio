@@ -1,0 +1,17 @@
+{
+  "name": "qr-studio",
+  "version": "1.0.0",
+  "description": "A privacy-first browser tool for generating and decoding QR codes.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "start:open": "node scripts/serve.mjs --open",
+    "build": "node scripts/build-pages.mjs",
+    "check": "node --check app.js && node --check scripts/serve.mjs && node --check scripts/build-pages.mjs && node scripts/verify-static.mjs",
+    "verify": "npm run check"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
