@@ -10,7 +10,7 @@
       content="在浏览器中将文本、网址、联系方式或 Wi-Fi 信息转换为二维码。"
     />
     <title>QR-Studio · 文本二维码生成器</title>
-    <link rel="stylesheet" href="styles.css?v=20261024-purple" />
+    <link rel="stylesheet" href="styles.css?v=20261025-polish" />
   </head>
   <body>
     <a class="skip-link" href="#generator">跳到二维码生成器</a>
@@ -37,9 +37,9 @@
 
       <nav class="workspace-nav" aria-label="工具导航">
         <div class="workspace-nav__tools">
-          <a href="#generator" data-tool="generator" aria-current="page">单个制作</a>
-          <a href="#batch-section" data-tool="batch-section">批量生成</a>
-          <a href="#decoder-section" data-tool="decoder-section">图片解码</a>
+          <a href="#generator" data-tool="generator" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h3v3h3v3h-6z"/></svg>单个制作</a>
+          <a href="#batch-section" data-tool="batch-section"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="13" height="13" rx="2"/><path d="M16 4H6a2 2 0 0 0-2 2v10"/><path d="M11 12h5m-5 4h5"/></svg>批量生成</a>
+          <a href="#decoder-section" data-tool="decoder-section"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4M3 12h18"/></svg>图片解码</a>
         </div>
         <a class="workspace-nav__privacy" href="#privacy-title">隐私设置</a>
       </nav>
@@ -87,13 +87,13 @@
           <fieldset class="quick-actions">
             <legend>导入或试用示例</legend>
             <div class="quick-actions__buttons">
-              <button type="button" class="chip" data-preset="url">网址示例</button>
-              <button type="button" class="chip" data-preset="contact">名片示例</button>
-              <button type="button" class="chip" data-preset="wifi">Wi-Fi 示例</button>
               <button type="button" class="chip chip--file" id="text-file-picker">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>
                 导入文本文件
               </button>
+              <button type="button" class="chip" data-preset="url">网址示例</button>
+              <button type="button" class="chip" data-preset="contact">名片示例</button>
+              <button type="button" class="chip" data-preset="wifi">Wi-Fi 示例</button>
               <input id="text-file-input" type="file" accept=".txt,.md,.csv,.json,text/plain,text/csv,application/json" hidden />
             </div>
             <p class="file-import-status" id="text-file-status" role="status" aria-live="polite">支持 UTF-8 编码的 TXT、MD、CSV、JSON 文件。</p>
@@ -146,8 +146,9 @@
           <div class="panel__heading">
             <div>
               <h2>预览与下载</h2>
+              <span class="live-indicator"><i></i>实时更新</span>
             </div>
-            <span class="live-indicator"><i></i>实时更新</span>
+            <button class="text-button preview-zoom" id="zoom-single-button" type="button" aria-haspopup="dialog" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></svg>放大预览</button>
           </div>
 
           <button class="qr-stage" id="qr-stage" type="button" aria-label="点击二维码放大预览" aria-haspopup="dialog" disabled>
@@ -157,10 +158,11 @@
               <span>输入内容后生成二维码</span>
             </span>
           </button>
-          <button class="text-button" id="zoom-single-button" type="button" aria-haspopup="dialog" disabled>放大预览</button>
+          <div class="preview-feedback">
           <p class="preview-hint" id="preview-hint" aria-live="polite">二维码已准备好，可使用手机相机扫描。</p>
           <p id="qr-metrics" class="qr-metrics"></p>
           <p id="quality-status" class="field-status" role="status"></p>
+          </div>
 
           <div class="preview-actions">
             <button class="button button--primary" type="button" id="download-button">
