@@ -9,6 +9,8 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const host = '127.0.0.1';
 const port = Number(process.env.PORT || 8085);
 const pageUrl = `http://${host}:${port}/`;
+const publicFiles = new Set(['/index.html', '/styles.css', '/app.js', '/studio.js', '/studio-core.js', '/vendor/qrcodegen.js', '/vendor/jsqr.js']);
+const contentSecurityPolicy = "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'";
 const mimeTypes = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
@@ -28,6 +30,8 @@ function sendText(response, status, message) {
 function getSafePath(requestUrl) {
   const pathname = decodeURIComponent(new URL(requestUrl, pageUrl).pathname);
   const requested = pathname.endsWith('/') ? `${pathname}index.html` : pathname;
+  // Serve only the application assets, never repository or local project files.
+  if (!publicFiles.has(requested)) return null;
   if (requested.split('/').some((segment) => segment.startsWith('.'))) return null;
   const filePath = resolve(root, `.${requested}`);
   if (filePath !== root && !filePath.startsWith(`${root}${sep}`)) return null;
@@ -35,6 +39,16 @@ function getSafePath(requestUrl) {
 }
 
 async function serve(request, response) {
+  response.setHeader('Cache-Control', 'no-store');
+  response.setHeader('Content-Security-Policy', `${contentSecurityPolicy}; frame-ancestors 'none'`);
+  response.setHeader('Referrer-Policy', 'no-referrer');
+  response.setHeader('X-Frame-Options', 'DENY');
+  response.setHeader('X-Content-Type-Options', 'nosniff');
+  response.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  if (![`${host}:${port}`, `localhost:${port}`].includes(request.headers.host)) {
+    sendText(response, 403, 'Forbidden');
+    return;
+  }
   if (!['GET', 'HEAD'].includes(request.method)) {
     sendText(response, 405, 'Method not allowed');
     return;

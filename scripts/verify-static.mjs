@@ -7,12 +7,14 @@ const requiredFiles = [
   'index.html',
   'styles.css',
   'app.js',
+  'studio.js',
+  'studio-core.js',
   'start.bat',
   'start.ps1',
   'scripts/serve.mjs',
   'scripts/build-pages.mjs',
   '.github/workflows/deploy-pages.yml',
-  'vendor/qrcode.min.js',
+  'vendor/qrcodegen.js',
   'vendor/jsqr.js',
 ];
 
@@ -24,7 +26,7 @@ for (const file of requiredFiles) {
 
 const html = await readFile(resolve(root, 'index.html'), 'utf8');
 const script = await readFile(resolve(root, 'app.js'), 'utf8');
-const requiredMarkup = ['vendor/qrcode.min.js', 'vendor/jsqr.js', 'text-file-input', 'decoder-file'];
+const requiredMarkup = ['vendor/qrcodegen.js', 'vendor/jsqr.js', 'studio-core.js', 'studio.js', 'text-file-input', 'decoder-file', 'batch-input'];
 const requiredHandlers = ['generateQr', 'decodeFile', 'importTextFile'];
 
 for (const value of requiredMarkup) {

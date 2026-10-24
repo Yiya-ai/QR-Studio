@@ -1,0 +1,4 @@
+# Keep upstream release files verbatim, including their original whitespace.
+vendor/qrcodegen.js -text -whitespace
+vendor/jsqr.LICENSE.txt -text -whitespace
+vendor/qrcodejs.LICENSE.txt -text -whitespace

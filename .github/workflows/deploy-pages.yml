@@ -27,6 +27,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Verify before deploying
+        run: npm run verify
       - name: Build static site
         run: npm run build
       - name: Configure Pages
