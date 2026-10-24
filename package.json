@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node scripts/serve.mjs",
     "start:open": "node scripts/serve.mjs --open",
-    "build": "node scripts/build-pages.mjs",
-    "check": "node --check app.js && node --check studio.js && node --check studio-core.js && node --check scripts/serve.mjs && node --check scripts/build-pages.mjs && node scripts/verify-static.mjs",
+    "build": "node scripts/build-static.mjs",
+    "check": "node --check app.js && node --check studio.js && node --check studio-core.js && node --check scripts/serve.mjs && node --check scripts/build-static.mjs && node scripts/verify-static.mjs",
     "test": "node --test scripts/privacy.test.mjs scripts/qr-roundtrip.test.mjs scripts/studio.test.mjs scripts/server.test.mjs",
     "verify": "npm run check && npm test"
   },

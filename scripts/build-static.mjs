@@ -20,4 +20,4 @@ for (const file of ['qrcodegen.js', 'jsqr.js', 'jsqr.LICENSE.txt']) {
   await cp(resolve(root, 'vendor', file), resolve(dist, 'vendor', file));
 }
 
-console.log('GitHub Pages bundle created in dist/.');
+console.log('Static site bundle created in dist/.');

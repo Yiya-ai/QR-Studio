@@ -87,11 +87,13 @@ You can also run `npm start`, or `npm run start:open` to start and open the page
 
 也可以在命令行中执行 `npm start`，或执行 `npm run start:open` 来启动并自动打开页面。
 
-## Deploy with GitHub Pages / 使用 GitHub Pages 部署
+## Server deployment / 服务器部署
 
-The included [GitHub Pages workflow](.github/workflows/deploy-pages.yml) builds and deploys the static app after a push to `main` (or by manually running the workflow). Before the first deployment, create a GitHub repository, push this project, then set **Settings → Pages → Source** to **GitHub Actions**. The workflow will report the public URL after it succeeds.
+The app is served by Nginx at [https://170.9.3.185/qr-studio/](https://170.9.3.185/qr-studio/). GitHub hosts the source and runs verification; GitHub Pages deployment has been removed. Run `npm run verify` and `npm run build`, then deploy only `dist/`. No Node.js runtime or content backend is needed on the server.
 
-随附的 [GitHub Pages 工作流](.github/workflows/deploy-pages.yml) 会在推送到 `main` 后（或通过手动运行工作流）构建并部署静态应用。首次部署前，请创建 GitHub 仓库并推送本项目，然后在 **Settings → Pages → Source** 中选择 **GitHub Actions**。工作流成功后会显示公开访问地址。
+线上地址：[https://170.9.3.185/qr-studio/](https://170.9.3.185/qr-studio/)。项目由 Nginx 静态托管，GitHub 保留源码和自动测试，已移除 Pages 部署。执行 `npm run verify` 和 `npm run build` 后仅发布 `dist/`，服务器无需 Node.js 运行时或处理用户内容的后端。
+
+部署布局、Nginx 配置和回滚方式见 [服务器部署说明](docs/server-deployment.md)。服务器的站点访问日志关闭；输入内容始终只在浏览器处理，系统与网络层仍可能记录连接元数据。
 
 ## Verify / 验证
 

@@ -12,8 +12,8 @@ const requiredFiles = [
   'start.bat',
   'start.ps1',
   'scripts/serve.mjs',
-  'scripts/build-pages.mjs',
-  '.github/workflows/deploy-pages.yml',
+  'scripts/build-static.mjs',
+  'deploy/nginx-qr-studio.conf',
   'vendor/qrcodegen.js',
   'vendor/jsqr.js',
 ];
@@ -34,11 +34,6 @@ for (const value of requiredMarkup) {
 }
 for (const value of requiredHandlers) {
   if (!script.includes(value)) throw new Error(`Required handler is missing: ${value}`);
-}
-
-const pagesWorkflow = await readFile(resolve(root, '.github/workflows/deploy-pages.yml'), 'utf8');
-if (!pagesWorkflow.includes('actions/deploy-pages@v4')) {
-  throw new Error('GitHub Pages deployment action is missing.');
 }
 
 console.log('Static release checks passed.');
