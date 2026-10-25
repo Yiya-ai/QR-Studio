@@ -10,45 +10,52 @@
       content="在浏览器中将文本、网址、联系方式或 Wi-Fi 信息转换为二维码。"
     />
     <title>QR-Studio · 文本二维码生成器</title>
-    <link rel="stylesheet" href="styles.css?v=20261025-polish" />
+    <link rel="stylesheet" href="styles.css?v=20261025-workspace" />
   </head>
   <body>
     <a class="skip-link" href="#generator">跳到二维码生成器</a>
 
-    <main>
-      <section class="hero" aria-labelledby="page-title">
-        <div class="hero__eyebrow">
+    <aside class="sidebar" aria-label="二维码工作台导航">
+        <a class="brand" href="#generator" aria-label="码语首页">
           <span class="brand-mark" aria-hidden="true">
             <svg viewBox="0 0 48 48" fill="none">
               <path d="M5 5h16v16H5V5Zm22 0h16v16H27V5ZM5 27h16v16H5V27Z" stroke="currentColor" stroke-width="5" />
               <path d="M30 29h5v5h8v9H29v-7h5v-4h-4v-3Z" fill="currentColor" />
             </svg>
           </span>
-          <span>码语 · QR STUDIO</span>
-        </div>
-        <h1 id="page-title">二维码工作台</h1>
-        <p class="hero__intro">
-          文本转码、批量标签与图片识别
-        </p>
-        <div class="hero__notes" aria-label="服务特点">
-          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.7 2.9 8.9 7 10 4.1-1.1 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>本地处理</span>
-        </div>
-      </section>
-
+          <span class="brand-name">码语<small>QR STUDIO</small></span>
+        </a>
+      <p class="nav-label">二维码工具</p>
       <nav class="workspace-nav" aria-label="工具导航">
         <div class="workspace-nav__tools">
           <a href="#generator" data-tool="generator" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h3v3h3v3h-6z"/></svg>单个制作</a>
           <a href="#batch-section" data-tool="batch-section"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="13" height="13" rx="2"/><path d="M16 4H6a2 2 0 0 0-2 2v10"/><path d="M11 12h5m-5 4h5"/></svg>批量生成</a>
           <a href="#decoder-section" data-tool="decoder-section"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4M3 12h18"/></svg>图片解码</a>
         </div>
-        <a class="workspace-nav__privacy" href="#privacy-title">隐私设置</a>
+        <a class="workspace-nav__privacy" href="#privacy-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.7 2.9 8.9 7 10 4.1-1.1 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>隐私设置</a>
       </nav>
+      <div class="sidebar-note">
+        <span class="local-dot" aria-hidden="true"></span>
+        <div><strong>你的本地工作台</strong><p>无需登录，内容仅在浏览器内处理。</p></div>
+      </div>
+    </aside>
+
+    <header class="topbar">
+      <div class="breadcrumb"><span>工作空间</span><span aria-hidden="true">/</span><span id="current-tool">单个制作</span></div>
+      <span class="local-status"><i class="local-dot" aria-hidden="true"></i>本地处理</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div><h1 id="page-title">制作一个二维码</h1><p class="hero__intro" id="page-description">从一段文字到一次分享，在这里完成。</p></div>
+        <span class="page-badge">无需上传内容</span>
+      </section>
 
       <section class="generator" id="generator" data-workspace aria-labelledby="generator-title">
         <div class="panel panel--editor">
           <div class="panel__heading">
             <div>
-              <h2 id="generator-title">制作一个二维码</h2>
+              <h2 id="generator-title">二维码内容</h2>
               <p class="section-description">选择内容类型，填写后自动生成。</p>
             </div>
             <button class="text-button" type="button" id="clear-button">清空内容</button>
@@ -85,7 +92,7 @@
           </details>
 
           <fieldset class="quick-actions">
-            <legend>导入或试用示例</legend>
+            <legend>从文件或示例开始</legend>
             <div class="quick-actions__buttons">
               <button type="button" class="chip chip--file" id="text-file-picker">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>
@@ -145,7 +152,7 @@
         <div class="panel panel--preview" id="single-preview" tabindex="-1">
           <div class="panel__heading">
             <div>
-              <h2>预览与下载</h2>
+              <h2>二维码预览</h2>
               <span class="live-indicator"><i></i>实时更新</span>
             </div>
             <button class="text-button preview-zoom" id="zoom-single-button" type="button" aria-haspopup="dialog" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></svg>放大预览</button>
@@ -155,7 +162,8 @@
             <canvas id="qr-canvas" width="512" height="512" aria-label="已生成的二维码预览"></canvas>
             <span class="qr-placeholder" id="qr-placeholder" hidden>
               <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 5h16v16H5V5Zm22 0h16v16H27V5ZM5 27h16v16H5V27Z"/><path d="M30 29h5v5h8v9H29v-7h5v-4h-4v-3Z"/></svg>
-              <span>输入内容后生成二维码</span>
+              <strong>二维码会显示在这里</strong>
+              <span>填写内容，即可预览和下载。</span>
             </span>
           </button>
           <div class="preview-feedback">
@@ -183,7 +191,7 @@
       </section>
 
       <section class="batch panel" id="batch-section" data-workspace aria-labelledby="batch-title" hidden>
-        <div class="panel__heading"><div><h2 id="batch-title">批量制作二维码</h2><p class="section-description">导入清单，统一生成，再打包下载或打印。</p></div><span class="privacy-badge">最多 50 个</span></div>
+        <div class="panel__heading"><div><h2 id="batch-title">批量工作区</h2><p class="section-description">每行一条内容，或导入 TXT / CSV 文件。</p></div><span class="privacy-badge">最多 50 个</span></div>
         <div class="batch-workspace">
         <div class="batch-editor">
         <h3 class="subsection-title">1. 准备内容</h3>
@@ -280,6 +288,7 @@
           <p>二维码本身不加密，任何拿到二维码的人都可能读取内容。页面清理不等于对浏览器或系统内存进行不可恢复的擦除；浏览器扩展、截图和剪贴板历史也不受本页面控制。</p>
         </details>
       </section>
+      <footer class="page-footer"><span>码语 · 让分享更简单</span><span>本地生成，无需注册</span></footer>
     </main>
 
     <dialog class="zoom-dialog" id="zoom-dialog" aria-labelledby="zoom-title" aria-describedby="zoom-help">

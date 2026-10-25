@@ -55,11 +55,20 @@
   const downloads = new Map();
   const yieldFrame = () => new Promise((resolve) => window.setTimeout(resolve, 0));
   const toolIds = ['generator', 'batch-section', 'decoder-section'];
+  const toolPages = {
+    generator: ['单个制作', '制作一个二维码', '从一段文字到一次分享，在这里完成。'],
+    'batch-section': ['批量生成', '批量制作二维码', '准备一份内容清单，统一生成、下载与打印。'],
+    'decoder-section': ['图片解码', '读取二维码图片', '从图片中读出内容，继续编辑或分享。'],
+  };
   let activeTool = 'generator';
   function showTool(id) {
     if (!toolIds.includes(id)) return;
     if (activeTool !== id) { closeZoom(); clearPrint(); }
     activeTool = id;
+    const [label, title, description] = toolPages[id];
+    $('current-tool').textContent = label;
+    $('page-title').textContent = title;
+    $('page-description').textContent = description;
     for (const toolId of toolIds) $(toolId).hidden = toolId !== id;
     for (const link of document.querySelectorAll('[data-tool]')) {
       if (link.dataset.tool === id) link.setAttribute('aria-current', 'page');
@@ -74,7 +83,7 @@
     const id = hash === 'decoder-title' ? 'decoder-section' : hash;
     if (!toolIds.includes(id)) return;
     showTool(id);
-    if (scroll) $(id).scrollIntoView({ block: 'start' });
+    if (scroll) document.body.scrollIntoView({ block: 'start' });
   }
   const status = (message, state = 'info') => { $('batch-status').textContent = message; $('batch-status').dataset.state = state; };
   function fields() { return [...$('payload-fields').querySelectorAll('input, textarea, select')]; }
