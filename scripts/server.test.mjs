@@ -24,7 +24,7 @@ test('real local server serves all application assets and rejects private paths 
       child.stdout.on('data', (chunk) => { if (String(chunk).includes('is running')) finish(); });
     });
     const base = `http://127.0.0.1:${port}`;
-    for (const path of ['/', '/styles.css', '/app.js', '/studio.js', '/studio-core.js', '/vendor/qrcodegen.js', '/vendor/jsqr.js']) {
+    for (const path of ['/', '/styles.css', '/app.js', '/studio.js', '/studio-core.js', '/tree.js', '/tree-core.js', '/tree-webgl.js', '/tree.css', '/vendor/qrcodegen.js', '/vendor/jsqr.js']) {
       const response = await fetch(base + path);
       assert.equal(response.status, 200, path);
       assert.equal(response.headers.get('cache-control'), 'no-store');

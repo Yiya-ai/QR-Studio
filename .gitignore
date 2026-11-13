@@ -22,6 +22,8 @@ cookies.txt
 logs/
 downloads/
 outputs/
+output/
+.omx/
 tmp/
 temp/
 *.log

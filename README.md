@@ -14,6 +14,7 @@ A privacy-first static web app that turns text into QR codes, decodes QR images,
 - Enlarge single and batch codes using vector previews; use separate workspaces on desktop and mobile.
 - Clear all page data manually, after 1/5/15/30 idle minutes (5 by default), or optionally when the page is hidden.
 - All typed text, imported files, and uploaded images stay in the browser.
+- Grow a local procedural QR tree, switch between tree and scannable QR views, choose seasons/colors, and export the scene or QR image.
 
 - 支持从纯文本、网址、联系人名片和 Wi-Fi 信息生成二维码。
 - 支持导入 UTF-8 编码的 `.txt`、`.md`、`.csv` 或 `.json` 文件。
@@ -42,7 +43,21 @@ A privacy-first static web app that turns text into QR codes, decodes QR images,
 
 ## Batch and print / 批量与打印
 
-顶部导航可切换“单个制作”“批量生成”“图片解码”，切换时保留当前页面的输入；隐私设置位于工作区之后，也可从顶部入口直达。“外观与导出设置”默认折叠，单个和批量共用样式参数。手机上可通过“查看二维码”和“返回编辑内容”在输入与预览之间跳转。Wi-Fi、名片等表单的编码原文可按需展开查看。
+顶部导航可切换“单个制作”“批量生成”“图片解码”“魔法树”，切换时保留当前页面的输入；隐私设置位于工作区之后，也可从顶部入口直达。“外观与导出设置”默认折叠，单个和批量共用样式参数。手机上可通过“查看二维码”和“返回编辑内容”在输入与预览之间跳转。Wi-Fi、名片等表单的编码原文可按需展开查看。
+
+## Magic tree / 魔法树
+
+输入文字或网址，生成原创的立体树景；也可点击“使用单个制作的内容”复用已生成的 Wi-Fi、名片等编码内容。魔法树输入最多 1,200 字符，实际容量仍受 UTF-8 字节数限制；容错固定为 M。
+
+- 点击树景或“展开二维码”，在树景和保留花叶配色的俯视二维码之间切换；支持键盘 Enter/空格。
+- 春、夏、秋三种季节，以及自然、薰衣草、珊瑚、金色、晴空、初雪六种配色；自然配色跟随季节，其余配色覆盖树冠颜色。鼠标或手指水平拖动可 360° 旋转，也可使用左右按钮、方向键和“自动旋转”；拖动不会触发二维码切换。
+- 下载 1024px 花叶二维码 PNG、标准二维码 PNG/SVG 或树景 PNG。花叶码保留当前配色，浅色效果可能影响识别；正式扫码或打印也可下载高对比标准码。提供对花叶俯视画面的实际像素识别自检，不能代替实机扫描。
+- 统一工作台界面中的暖色树景、细密花瓣、草地与立体二维码底座，使用本地 WebGL 绘制；不支持 WebGL 时自动降级为 Canvas。无外部模型、素材、音频或接口，通过图片分享，不创建云端内容链接。
+- 支持轻微风动和树叶汇聚成二维码的过渡；隐藏页面、清空内容或开启“减少动态效果”时停止持续动画。
+- 树干具有粗细递减、弯折和程序树皮纹理；分瓣折面叶片随树冠与枝梢分层摆动，并有循环飘落的叶片。可用“下雨”独立开启雨丝与涟漪，俯视二维码时自动隐藏天气粒子。
+- 与其他工作区共用自动/手动清理；清理立即擦除场景和临时导出画布，取消动画及过期下载。切换工作区或后台时暂停动画，并尊重系统“减少动态效果”设置。
+
+原站的形态、运动、季节、雨景及俯视配色观察详见 [ICQR 树景观察记录](docs/icqr-tree-observation-2026-11-11.md)。本地效果为程序生成的近似实现。
 
 桌面端编辑区与预览区使用分开的圆角卡片，保持等高、底边对齐；小屏幕自动上下排列。界面使用紫色主题、浅紫背景和柔和阴影。
 

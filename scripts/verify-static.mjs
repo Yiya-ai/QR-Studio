@@ -9,6 +9,10 @@ const requiredFiles = [
   'app.js',
   'studio.js',
   'studio-core.js',
+  'tree.js',
+  'tree-webgl.js',
+  'tree.css',
+  'tree-core.js',
   'start.bat',
   'start.ps1',
   'scripts/serve.mjs',
@@ -26,7 +30,7 @@ for (const file of requiredFiles) {
 
 const html = await readFile(resolve(root, 'index.html'), 'utf8');
 const script = await readFile(resolve(root, 'app.js'), 'utf8');
-const requiredMarkup = ['vendor/qrcodegen.js', 'vendor/jsqr.js', 'studio-core.js', 'studio.js', 'text-file-input', 'decoder-file', 'batch-input'];
+const requiredMarkup = ['vendor/qrcodegen.js', 'vendor/jsqr.js', 'studio-core.js', 'studio.js', 'tree-core.js', 'tree.js', 'tree-content', 'tree-canvas', 'text-file-input', 'decoder-file', 'batch-input'];
 const requiredHandlers = ['generateQr', 'decodeFile', 'importTextFile'];
 
 for (const value of requiredMarkup) {

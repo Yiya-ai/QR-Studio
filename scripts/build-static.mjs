@@ -13,6 +13,10 @@ await Promise.all([
   cp(resolve(root, 'app.js'), resolve(dist, 'app.js')),
   cp(resolve(root, 'studio.js'), resolve(dist, 'studio.js')),
   cp(resolve(root, 'studio-core.js'), resolve(dist, 'studio-core.js')),
+  cp(resolve(root, 'tree.js'), resolve(dist, 'tree.js')),
+  cp(resolve(root, 'tree-webgl.js'), resolve(dist, 'tree-webgl.js')),
+  cp(resolve(root, 'tree.css'), resolve(dist, 'tree.css')),
+  cp(resolve(root, 'tree-core.js'), resolve(dist, 'tree-core.js')),
   cp(resolve(root, 'THIRD_PARTY_NOTICES.md'), resolve(dist, 'THIRD_PARTY_NOTICES.md')),
 ]);
 await mkdir(resolve(dist, 'vendor'));

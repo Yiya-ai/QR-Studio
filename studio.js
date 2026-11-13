@@ -54,18 +54,19 @@
   }
   const downloads = new Map();
   const yieldFrame = () => new Promise((resolve) => window.setTimeout(resolve, 0));
-  const toolIds = ['generator', 'batch-section', 'decoder-section'];
+  const toolIds = ['generator', 'batch-section', 'decoder-section', 'tree-section'];
   let activeTool = 'generator';
   function showTool(id) {
     if (!toolIds.includes(id)) return;
     if (activeTool !== id) { closeZoom(); clearPrint(); }
     activeTool = id;
+    window.QRTree?.setVisible(id === 'tree-section');
     for (const toolId of toolIds) $(toolId).hidden = toolId !== id;
     for (const link of document.querySelectorAll('[data-tool]')) {
       if (link.dataset.tool === id) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
     }
-    if (id !== 'decoder-section') {
+    if (id === 'generator' || id === 'batch-section') {
       $(id === 'generator' ? 'single-settings-slot' : 'batch-settings-slot').append($('output-settings'));
     }
   }
@@ -182,13 +183,14 @@
     status('准备好内容后，点击“生成这一批”。可在外观与导出设置中调整样式。');
   }
   function clear() {
+    window.QRTree?.clear();
     closeZoom();
     clearFields(); clearBatch();
     $('export-name').value = '';
     for (const url of [...downloads.keys()]) releaseDownload(url);
   }
   function hasData() {
-    return Boolean(zoomUrl || $('batch-input').value || $('export-name').value || records.length || batchPending || printSource.length || fields().some((field) => field.tagName !== 'SELECT' && (field.type === 'checkbox' ? field.checked : field.value)));
+    return Boolean(window.QRTree?.hasData() || zoomUrl || $('batch-input').value || $('export-name').value || records.length || batchPending || printSource.length || fields().some((field) => field.tagName !== 'SELECT' && (field.type === 'checkbox' ? field.checked : field.value)));
   }
   async function generateBatch() {
     if (checkPrivacyDeadline()) return;

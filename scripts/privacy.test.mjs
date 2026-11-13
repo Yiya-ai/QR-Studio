@@ -149,6 +149,50 @@ test('extended form and batch data participate in idle cleanup and clear-all', (
   assert.equal(f.run('window.QRStudio.privateData'), false);
 });
 
+test('tree-only private content participates in the real app idle timer and manual clear', () => {
+  const f = fixture(true);
+  f.run(`window.QRTree = {
+    content: 'private tree', clears: 0,
+    hasData() { return Boolean(this.content); },
+    clear() { this.content = ''; this.clears++; },
+    setVisible() {}
+  }; noteActivity()`);
+  assert.equal(f.get('content-input').value, '');
+  assert.equal(f.run('window.QRStudio.hasData()'), true);
+  assert.equal(f.run('hasPrivateData()'), true);
+  f.tick(299999);
+  assert.equal(f.run('window.QRTree.content'), 'private tree');
+  f.tick(1);
+  assert.equal(f.run('window.QRTree.content'), '');
+  assert.equal(f.run('window.QRTree.clears'), 1);
+  assert.equal(f.run('hasPrivateData()'), false);
+  f.run("window.QRTree.content = 'new private tree'");
+  f.get('clear-all-button').fire('click');
+  assert.equal(f.run('window.QRTree.content'), '');
+  assert.equal(f.run('window.QRTree.clears'), 2);
+  assert.equal(f.run('window.QRStudio.hasData()'), false);
+});
+
+test('real studio workspace navigation tells the tree when to suspend and resume', () => {
+  const f = fixture(true);
+  f.run(`window.QRTree = {
+    visibility: [],
+    setVisible(value) { this.visibility.push(value); }
+  }; window.QRStudio.showTool('tree-section')`);
+  assert.equal(f.get('tree-section').hidden, false);
+  assert.equal(f.get('generator').hidden, true);
+  assert.equal(f.run('window.QRTree.visibility.at(-1)'), true);
+  f.run("window.QRStudio.showTool('batch-section')");
+  assert.equal(f.get('tree-section').hidden, true);
+  assert.equal(f.run('window.QRTree.visibility.at(-1)'), false);
+  f.run("window.location.hash = '#tree-section'");
+  f.windowEvent('hashchange');
+  assert.equal(f.get('tree-section').hidden, false);
+  assert.equal(f.run('window.QRTree.visibility.at(-1)'), true);
+  f.run("window.QRStudio.showTool('decoder-section')");
+  assert.equal(f.run('window.QRTree.visibility.join()'), 'true,false,true,false');
+});
+
 test('clear button wipes all page surfaces, URLs, file selections and pending generation', () => {
   const f = fixture();
   for (const id of ['content-input', 'decoded-output', 'text-file-input', 'decoder-file']) f.get(id).value = 'private';

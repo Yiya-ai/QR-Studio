@@ -10,7 +10,8 @@
       content="在浏览器中将文本、网址、联系方式或 Wi-Fi 信息转换为二维码。"
     />
     <title>QR-Studio · 文本二维码生成器</title>
-    <link rel="stylesheet" href="styles.css?v=20261025-polish" />
+    <link rel="stylesheet" href="styles.css?v=20261113-unified" />
+    <link rel="stylesheet" href="tree.css?v=20261113-unified" />
   </head>
   <body>
     <a class="skip-link" href="#generator">跳到二维码生成器</a>
@@ -28,7 +29,7 @@
         </div>
         <h1 id="page-title">二维码工作台</h1>
         <p class="hero__intro">
-          文本转码、批量标签与图片识别
+          文本转码、批量标签、图片识别与魔法树
         </p>
         <div class="hero__notes" aria-label="服务特点">
           <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.7 2.9 8.9 7 10 4.1-1.1 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>本地处理</span>
@@ -40,6 +41,7 @@
           <a href="#generator" data-tool="generator" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h3v3h3v3h-6z"/></svg>单个制作</a>
           <a href="#batch-section" data-tool="batch-section"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="13" height="13" rx="2"/><path d="M16 4H6a2 2 0 0 0-2 2v10"/><path d="M11 12h5m-5 4h5"/></svg>批量生成</a>
           <a href="#decoder-section" data-tool="decoder-section"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4M3 12h18"/></svg>图片解码</a>
+          <a href="#tree-section" data-tool="tree-section"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V10m0 6-4-4m4 1 4-4M8 21h8"/><path d="M5 13a4 4 0 0 1-1-7 4 4 0 0 1 7-3 4 4 0 0 1 7 3 4 4 0 0 1 1 7"/></svg>魔法树</a>
         </div>
         <a class="workspace-nav__privacy" href="#privacy-title">隐私设置</a>
       </nav>
@@ -258,6 +260,51 @@
           </div>
         </div>
       </section>
+      <section id="tree-section" class="tree-workspace panel" data-workspace aria-labelledby="tree-title" hidden>
+        <div class="panel__heading">
+          <div><h2 id="tree-title">魔法树</h2><p class="section-description">让心意，生长成一棵树</p></div>
+          <span class="privacy-badge">本地绘制</span>
+        </div>
+        <div class="tree-layout">
+          <div class="tree-view">
+            <button id="tree-stage" class="tree-stage" type="button" aria-label="切换到二维码视图" aria-describedby="tree-view-help" disabled>
+              <canvas id="tree-canvas" width="900" height="900" aria-label="魔法树预览" hidden></canvas>
+              <span id="tree-empty" class="tree-empty"><svg viewBox="0 0 100 120" aria-hidden="true"><path d="M50 105V48m0 35L31 64m19 7 21-21M32 106h36"/><path d="M25 68C-1 47 20 18 39 26 46 1 77 13 76 33c25 8 22 39-1 43"/></svg><strong>从一句话，种下一棵树</strong><span>输入内容，或点击“试用示例”。</span></span>
+            </button>
+            <div class="tree-view-controls" role="group" aria-label="树景视图">
+              <button id="tree-toggle" type="button" class="chip" disabled>展开二维码</button>
+              <button id="tree-rotate-left" type="button" class="text-button" aria-label="向左旋转树景" disabled>↶ 左转</button>
+              <button id="tree-rotate-right" type="button" class="text-button" aria-label="向右旋转树景" disabled>右转 ↷</button>
+              <button id="tree-auto-rotate" type="button" class="text-button" aria-pressed="false" disabled>自动旋转</button>
+              <button id="tree-rain" type="button" class="text-button" aria-pressed="false" disabled>下雨</button>
+            </div>
+            <p id="tree-view-help" class="tree-help">拖动树景可 360° 旋转，轻点查看花叶俯视二维码。</p>
+          </div>
+          <div class="tree-editor">
+            <label class="input-label" for="tree-content">想放进树里的内容</label>
+            <div class="tree-input-row"><textarea id="tree-content" rows="1" maxlength="1200" autocomplete="off" spellcheck="false" placeholder="输入网址，或写下一句祝福…" aria-describedby="tree-content-help"></textarea><button id="tree-example" class="tree-example-button button button--secondary" type="button" aria-label="试用祝福示例">试用示例</button></div>
+            <fieldset class="tree-options"><legend>选择季节</legend><div class="tree-seasons" role="group" aria-label="树的季节">
+              <button type="button" data-season="spring" aria-pressed="true"><span aria-hidden="true">✿</span>春 · 花开</button>
+              <button type="button" data-season="summer" aria-pressed="false"><span aria-hidden="true">☀</span>夏 · 繁叶</button>
+              <button type="button" data-season="autumn" aria-pressed="false"><span aria-hidden="true">❧</span>秋 · 金叶</button>
+            </div></fieldset>
+            <fieldset class="tree-options"><legend>树冠配色</legend><div class="tree-palettes" role="group" aria-label="树冠配色">
+              <button type="button" data-palette="natural" aria-pressed="true" aria-label="自然" title="自然"><span></span></button>
+              <button type="button" data-palette="lavender" aria-pressed="false" aria-label="薰衣草" title="薰衣草"><span></span></button>
+              <button type="button" data-palette="coral" aria-pressed="false" aria-label="珊瑚" title="珊瑚"><span></span></button>
+              <button type="button" data-palette="gold" aria-pressed="false" aria-label="金色" title="金色"><span></span></button>
+              <button type="button" data-palette="sky" aria-pressed="false" aria-label="晴空" title="晴空"><span></span></button>
+              <button type="button" data-palette="snow" aria-pressed="false" aria-label="初雪" title="初雪"><span></span></button>
+            </div></fieldset>
+            <p id="tree-status" class="tree-status" role="status" aria-live="polite">准备好内容后，树景会自动生成。</p>
+            <details class="tree-more settings"><summary>下载与更多选项<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="tree-more-content">
+              <div class="tree-input-actions"><button id="tree-use-current" class="text-button" type="button">使用单个制作的内容</button><button id="tree-clear" class="text-button" type="button">清空魔法树</button></div>
+              <div class="tree-downloads"><button type="button" id="tree-download-color" class="button button--primary" disabled>下载花叶二维码 PNG</button><button type="button" id="tree-download-qr" class="button button--secondary" disabled>下载标准二维码 PNG</button><button type="button" id="tree-download-svg" class="button button--secondary" disabled>下载标准二维码 SVG</button><button type="button" id="tree-download-scene" class="button button--secondary" disabled>下载树景 PNG</button><button type="button" id="tree-check" class="button button--secondary" disabled>识别自检</button></div>
+              <p id="tree-content-help" class="tree-help">最多 1,200 字符，实际还受字节容量限制。俯视二维码保留花叶颜色，浅色配色可能影响识别；扫码或打印也可下载深色标准码。内容仅在本地处理。</p>
+            </div></details>
+          </div>
+        </div>
+      </section>
       <section class="privacy-panel panel" id="privacy-section" aria-labelledby="privacy-title">
         <div class="panel__heading">
           <div><h2 id="privacy-title" tabindex="-1">隐私与数据清理</h2><p class="section-description">所有工作区共用以下设置，默认 5 分钟无操作自动清理。</p></div>
@@ -307,5 +354,8 @@
     <script src="studio-core.js"></script>
     <script src="app.js"></script>
     <script src="studio.js"></script>
+    <script src="tree-webgl.js"></script>
+    <script src="tree-core.js"></script>
+    <script src="tree.js"></script>
   </body>
 </html>

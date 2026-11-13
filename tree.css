@@ -1,0 +1,56 @@
+/* The garden keeps its own canvas palette inside the shared studio shell. */
+.tree-layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; gap: 28px; }
+.tree-view { min-width: 0; display: flex; align-items: center; flex-direction: column; gap: 12px; }
+.tree-stage { display: grid; place-items: center; width: 100%; aspect-ratio: 1; padding: 0; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-inset); background: #f4f0e6; color: var(--color-muted); }
+.tree-stage:disabled { cursor: default; opacity: 1; }
+.tree-stage:not(:disabled) { cursor: grab; touch-action: pan-y; user-select: none; }
+.tree-stage[data-dragging="true"] { cursor: grabbing; }
+.tree-stage canvas { display: block; width: 100%; height: auto; }
+.tree-empty { display: grid; justify-items: center; gap: 12px; padding: 24px; text-align: center; font-size: 13px; line-height: 1.7; }
+.tree-empty svg { width: 90px; height: 108px; margin-bottom: 8px; fill: none; stroke: #b2a58c; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tree-empty strong { color: var(--color-ink); font-size: 16px; font-weight: 600; }
+.tree-view-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; justify-content: center; }
+.tree-view-controls .text-button[aria-pressed="true"] { color: var(--color-primary); background: var(--color-primary-soft); }
+.tree-editor { min-width: 0; border-left: 1px solid var(--color-border); padding-left: 28px; }
+.tree-input-row { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; margin-top: 8px; }
+.tree-input-row textarea { flex: 1 1 100%; min-width: 0; min-height: 112px; margin: 0; }
+.tree-example-button { margin-left: auto; }
+.tree-options { border: 0; padding: 0; margin: 20px 0 0; min-width: 0; }
+.tree-options legend { padding: 0; margin-bottom: 10px; color: var(--color-ink); font-size: 14px; font-weight: 600; }
+.tree-seasons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.tree-seasons button { min-height: var(--control-height); padding: 8px 4px; border: 1px solid var(--color-border); border-radius: var(--radius-control); background: var(--color-surface); font-size: 13px; color: var(--color-muted); }
+.tree-seasons button span { display: inline-block; margin-right: 5px; font-size: 18px; vertical-align: middle; }
+.tree-seasons button:hover { color: var(--color-primary); border-color: var(--color-primary); }
+.tree-seasons button[aria-pressed="true"] { background: var(--color-primary-soft); border-color: var(--color-primary); color: var(--color-primary); font-weight: 650; }
+.tree-palettes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.tree-palettes button { display: grid; place-items: center; width: var(--control-height); height: var(--control-height); padding: 5px; border: 2px solid transparent; border-radius: 50%; background: transparent; }
+.tree-palettes button span { width: 28px; height: 28px; border: 1px solid #00000012; border-radius: 50%; background: #e9a6c3; }
+.tree-palettes [data-palette="lavender"] span { background: #9c79c5; }
+.tree-palettes [data-palette="coral"] span { background: #ed4846; }
+.tree-palettes [data-palette="gold"] span { background: #e8aa09; }
+.tree-palettes [data-palette="sky"] span { background: #4b9ce9; }
+.tree-palettes [data-palette="snow"] span { background: #dce5e8; }
+.tree-palettes button:hover { background: var(--color-input); }
+.tree-palettes button[aria-pressed="true"] { border-color: var(--color-primary); background: var(--color-primary-soft); }
+.tree-status { min-height: 22px; color: var(--color-muted); font-size: 13px; line-height: 1.7; margin: 16px 0; overflow-wrap: anywhere; }
+.tree-status[data-state="error"] { color: var(--color-error); }
+.tree-status[data-state="warning"] { color: var(--color-warning); }
+.tree-status[data-state="success"] { color: var(--color-success); }
+.tree-more { margin-top: 16px; }
+.tree-more-content { padding: 0 14px 16px; }
+.tree-help { color: var(--color-muted); font-size: 13px; line-height: 1.7; margin: 0; overflow-wrap: anywhere; }
+.tree-input-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.tree-downloads { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 16px; }
+.tree-downloads .button { min-width: 0; padding: 10px; }
+@media (max-width: 820px) {
+  .tree-layout { grid-template-columns: 1fr; gap: 24px; }
+  .tree-stage { max-width: 570px; }
+  .tree-editor { border-left: 0; border-top: 1px solid var(--color-border); padding: 24px 0 0; }
+}
+@media (max-width: 460px) {
+  .tree-seasons button span { display: block; margin: 0 0 4px; }
+}
+@media (max-width: 360px) {
+  .tree-palettes { display: grid; grid-template-columns: repeat(3, var(--control-height)); justify-content: space-between; }
+}
+@media print { .tree-workspace { display: none !important; } }
